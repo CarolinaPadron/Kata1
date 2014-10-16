@@ -6,6 +6,7 @@ public class Person {
     
     private String name;
     private Date birthday;
+    private long MILLISECONDS_PER_YEAR;
 
     public Person(String name, Date birthday) {
         this.name = name;
@@ -21,13 +22,19 @@ public class Person {
     }
     
     public int getAge() {
-        long result = (((((getYear()/1000)/60)/60)/24)/365);
-        return (int) result;
+        return (int) millisecondsToYears(getAgeInMilliseconds());
     }
     
-    private long getYear() {
-        Date now = new Date();
-        return now.getTime() - birthday.getTime();
+    private long millisecondsToYears(long milliseconds) {
+        return (int) (milliseconds / MILLISECONDS_PER_YEAR);
+    }
+    
+    private long getAgeInMilliseconds() {
+        return now().getTime() - birthday.getTime();
+    }
+    
+    private Date now() {
+        return new Date();
     }
     
 }
